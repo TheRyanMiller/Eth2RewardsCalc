@@ -29,7 +29,7 @@ console.log("FILEPATH:",filePath)
 let prysmData = {};
 // Load client secrets from a local file.
 module.exports = () => new Promise ((resolve, reject) => {
-  fs.readFile(filePath, (err, content) => {
+  fs.readFile(path.dirname(require.main.filename)+'/credentials.json', (err, content) => {
     if (err) return console.log('Error loading client secret file:', err);
     // Authorize a client with credentials, then call the Google Sheets API.
     
