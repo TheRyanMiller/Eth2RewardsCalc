@@ -10,7 +10,11 @@
   "license": "ISC",
   "dependencies": {
     "axios": "^0.21.0",
+    "comma-number": "^2.0.1",
     "dotenv": "^8.2.0",
-    "googleapis": "^39.2.0"
+    "googleapis": "^39.2.0",
+    "humanize-duration": "^3.24.0",
+    "node-cron": "^2.0.3",
+    "twitter": "^1.7.1"
   }
 }
