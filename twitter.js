@@ -16,48 +16,28 @@ let client2 = new Twitter({
     access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET2
 });
 
-let cronValue = "0 9,18 * * *";
+let cronValue = "0 9,21 * * *";
 
 const test = () => {
     eth2calc().then(data=>{
-        console.log(data);
-        let tweet = "---Current Network---\n";
-        tweet+="🤑 Reward rate: "+data.rewardRate+"\n";
-        tweet+="👨‍🌾 Participation rate: "+data.participationRate+"\n";
-        tweet+="💻 Active validators: "+data.numActiveValidators+"\n\n";
-        tweet+="---Queue---\n"
-        tweet+="⏰ Wait time: "+data.humanReadableWait+"\n";
-        tweet+="💻 Validators: "+data.queueLength+"\n\n";
-        tweet+="---Projected Annual Returns---\n"
-        tweet+="Ξ "+data.annualEthReturns+" ("+data.annualDollarReturns+")";
-        console.log(tweet)
-        client2.post('statuses/update', {
-            status:tweet
-        },function(error, tweet, response) {
-            if(error) console.log(error);
-            else{                                  
-                console.log("Tweet successful.");
-            }
-        })
+        let status = buildTweet(data);
+        // client2.post('statuses/update', {
+        //     status
+        // },function(error, tweet, response) {
+        //     if(error) console.log(error);
+        //     else{                                  
+        //         console.log("Tweet successful.");
+        //     }
+        // })
     });
 }
 
 if(process.env.ISPROD==="true"){
     let postTask = cron.schedule(cronValue, () => {
         eth2calc().then(data=>{
-            console.log(data);
-            let tweet = "---Current Network---\n";
-            tweet+="🤑 Reward rate: "+data.rewardRate+"\n";
-            tweet+="👨‍🌾 Participation rate: "+data.participationRate+"\n";
-            tweet+="💻 Active validators: "+data.numActiveValidators+"\n\n";
-            tweet+="---Queue---\n"
-            tweet+="⏰ Wait time: "+data.humanReadableWait+"\n";
-            tweet+="💻 Validators: "+data.queueLength+"\n\n";
-            tweet+="---Projected Annual Returns---\n"
-            tweet+="Ξ "+data.annualEthReturns+" ("+data.annualDollarReturns+")";
-            console.log(tweet)
+            let status = buildTweet(data);
             client.post('statuses/update', {
-                status:tweet
+                //status
             },function(error, tweet, response) {
                 if(error) console.log(error);
                 else{                                  
@@ -71,3 +51,18 @@ else{
     test();
 }
 
+const buildTweet = (data) =>{
+    console.log(data);
+    console.log("\n");
+    let tweet = "---Current Network---\n";
+    tweet+="🤑 Reward rate: "+data.rewardRate+"\n";
+    tweet+="👨‍🌾 Participation rate: "+data.participationRate+"\n";
+    tweet+="💻 Active validators: "+data.numActiveValidators+"\n\n";
+    tweet+="---Queue---\n"
+    tweet+="⏰ Wait time: "+data.humanReadableWait+"\n";
+    tweet+="💻 Validators: "+data.queueLength+"\n\n";
+    tweet+="---Projected Annual Returns---\n"
+    tweet+="Ξ "+data.annualEthReturns+" ("+data.annualDollarReturns+")";
+    console.log(tweet+"\n\n");
+    return tweet;
+}

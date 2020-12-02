@@ -181,22 +181,9 @@ module.exports = () => new Promise ((resolve, reject) => {
     prysmData.queueLength = commaNumber(prysmData.queueLength);
     prysmData.participationRate = (100*prysmData.participationRate).toFixed(2)+"%";
     let numReturnRate = parseFloat(prysmData.rewardRate.substring(0,prysmData.rewardRate.length-1)).toFixed(2)/100;
-    console.log("===",numReturnRate)
     prysmData.annualEthReturns = parseFloat((numReturnRate*32).toFixed(2));
-    let dollarReturns = prysmData.ethPrice*prysmData.annualEthReturns;
-    console.log("annualEthReturns")
-    console.log(prysmData.annualEthReturns)
-    console.log("EthPrice")
-    console.log(prysmData.ethPrice)
-    console.log("DollarReturns")
-    console.log(prysmData.ethPrice*prysmData.annualEthReturns)
-    console.log("SHOULD MULTIPLY",prysmData.ethPrice*prysmData.annualEthReturns)
-    console.log("annualEthReturns: ",typeof prysmData.annualEthReturns)
-    console.log("ethPrice: ",typeof prysmData.ethPrice)
-    console.log("dollarReturns: ",typeof dollarReturns)
-    
+    let dollarReturns = prysmData.ethPrice*prysmData.annualEthReturns;    
     prysmData.dollarReturns = dollarReturns;
-    console.log("DOLLAR RETURNS",prysmData.dollarReturns)
     prysmData.annualDollarReturns = "$"+commaNumber(dollarReturns.toFixed(2));
     return prysmData;
   }
