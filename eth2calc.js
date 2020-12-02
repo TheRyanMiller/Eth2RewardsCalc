@@ -4,6 +4,7 @@ const {google} = require('googleapis');
 const getBeaconData = require('./getBeaconData');
 const commaNumber = require('comma-number');
 const axios = require('axios');
+const path = require('path');
 
 // If modifying these scopes, delete token.json.
 const SCOPES = ['https://www.googleapis.com/auth/spreadsheets.readonly','https://www.googleapis.com/auth/spreadsheets'];
@@ -23,11 +24,11 @@ const CELL_TOTAL_STAKED_ETH = 'Eth2 Calculator!C38';
 const CELL_AVG_NETWORK_ONLINE = 'Eth2 Calculator!C39';
 const CELL_TOTAL_VALIDATORS_ONLINE = 'Eth2 Calculator!F36';
 
-
+const filePath = path.dirname(require.main.filename)+'/credentials.json';
 let prysmData = {};
 // Load client secrets from a local file.
 module.exports = () => new Promise ((resolve, reject) => {
-  fs.readFile('credentials.json', (err, content) => {
+  fs.readFile(filePath, (err, content) => {
     if (err) return console.log('Error loading client secret file:', err);
     // Authorize a client with credentials, then call the Google Sheets API.
     
