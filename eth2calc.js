@@ -25,6 +25,7 @@ const CELL_AVG_NETWORK_ONLINE = 'Eth2 Calculator!C39';
 const CELL_TOTAL_VALIDATORS_ONLINE = 'Eth2 Calculator!F36';
 
 const filePath = path.dirname(require.main.filename)+'/credentials.json';
+console.log("FILEPATH:",filePath)
 let prysmData = {};
 // Load client secrets from a local file.
 module.exports = () => new Promise ((resolve, reject) => {
