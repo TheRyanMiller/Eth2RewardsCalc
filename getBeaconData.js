@@ -1,5 +1,4 @@
 const axios = require('axios');
-const web3 = require('web3');
 const humanizeDuration = require("humanize-duration");
 
 let participationRate = 0; 
