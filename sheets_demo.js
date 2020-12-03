@@ -1,7 +1,6 @@
 const fs = require('fs');
 const readline = require('readline');
 const {google} = require('googleapis');
-const path = require('path');
 
 // If modifying these scopes, delete token.json.
 const SCOPES = ['https://www.googleapis.com/auth/spreadsheets.readonly','https://www.googleapis.com/auth/spreadsheets'];
@@ -9,9 +8,9 @@ const SCOPES = ['https://www.googleapis.com/auth/spreadsheets.readonly','https:/
 // created automatically when the authorization flow completes for the first
 // time.
 const TOKEN_PATH = 'token.json';
-const filePath = path.dirname(require.main.filename)+'/credentials.json';
+
 // Load client secrets from a local file.
-fs.readFile(path.dirname(require.main.filename)+'/credentials.json', (err, content) => {
+fs.readFile('credentials.json', (err, content) => {
   if (err) return console.log('Error loading client secret file:', err);
   // Authorize a client with credentials, then call the Google Sheets API.
   authorize(JSON.parse(content), listMajors);
@@ -64,5 +63,30 @@ function getNewToken(oAuth2Client, callback) {
       });
       callback(oAuth2Client);
     });
+  });
+}
+
+/**
+ * Prints the names and majors of students in a sample spreadsheet:
+ * @see https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit
+ * @param {google.auth.OAuth2} auth The authenticated Google OAuth client.
+ */
+function listMajors(auth) {
+  const sheets = google.sheets({version: 'v4', auth});
+  sheets.spreadsheets.values.get({
+    spreadsheetId: '1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms',
+    range: 'Class Data!A2:E',
+  }, (err, res) => {
+    if (err) return console.log('The API returned an error: ' + err);
+    const rows = res.data.values;
+    if (rows.length) {
+      console.log('Name, Major:');
+      // Print columns A and E, which correspond to indices 0 and 4.
+      rows.map((row) => {
+        console.log(`${row[0]}, ${row[4]}`);
+      });
+    } else {
+      console.log('No data found.');
+    }
   });
 }

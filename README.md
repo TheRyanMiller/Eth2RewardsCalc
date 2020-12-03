@@ -12,5 +12,5 @@ This is a Twitter bot used to track rewards rate, network participation rate, an
 
 
 ## Contact
-Twitter: @real_Mills
+Twitter: @real_Mills  
 Eth: ryanmiller.eth
