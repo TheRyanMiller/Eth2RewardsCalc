@@ -16,7 +16,7 @@ let client2 = new Twitter({
     access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET2
 });
 
-let cronValue = "0 0,8,16 * * *";
+let cronValue = "30 0,7,16 * * *";
 
 const test = () => {
     eth2calc().then(data=>{
