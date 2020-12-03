@@ -30,8 +30,12 @@ module.exports = () => new Promise ((resolve, reject) => {
                     timeUntilEmptyQueue,humanReadableWait
                 };
                 resolve(payload)
+            }).catch(err=>{
+                reject(err);
             })
         })
+    }).catch(err=>{
+        reject(err);
     })
 })
 

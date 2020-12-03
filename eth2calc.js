@@ -40,17 +40,34 @@ module.exports = () => new Promise ((resolve, reject) => {
           updateTotalValidatorsOnline(oAuth2Client).then(res=>{
             getRewardRate(oAuth2Client).then(res=>{
               prysmData.rewardRate = res[0];
-              getEthPrice(oAuth2Client).then(res=>{
+              getEthPrice().then(res=>{
                 prysmData.ethPrice = res;
                 let tweetData = processData(prysmData);
                 resolve(tweetData);
+              }).catch(err=>{
+                  console.log("failed getting ETH price from CoinGecko.");
+                  reject(err);
               })
+            }).catch(err=>{
+              console.log("failed getting reward rate from Google Sheets.");
+              reject(err);
             })
-          })
+          }).catch(err=>{
+            console.log("failed updating total validators online from Google Sheets.");
+            reject(err);
         })
-        
-      })
+        }).catch(err=>{
+          console.log("failed updating total network participation rate from Google Sheets.");
+          reject(err);
+        })
+      }).catch(err=>{
+        console.log("Failed authenticating to Google Sheets.");
+        reject(err);
     })
+    }).catch(err=>{
+      console.log("Call to beacon chain data failed.");
+      reject(err);
+  })
     
   });
 
@@ -116,13 +133,16 @@ module.exports = () => new Promise ((resolve, reject) => {
       spreadsheetId: SPREADSHEET_ID,
       range: CELL_STAKER_REWARD_CURRENT,
     }, (err, res) => {
-      if (err) return console.log('The API returned an error: ' + err);
+      if (err) {
+        console.log('The API returned an error: ' + err);
+        reject(err);
+      }
       const rows = res.data.values;
       resolve(res.data.values[0]);
     });
   })
 
-  const getEthPrice = (auth) => new Promise ((resolve, reject) => {
+  const getEthPrice = () => new Promise ((resolve, reject) => {
     let url = "https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd";
     axios.get(url).then(resp => {
       console.log("ETH/USD",resp.data.ethereum.usd)

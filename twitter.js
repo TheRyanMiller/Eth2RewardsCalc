@@ -16,12 +16,12 @@ let client2 = new Twitter({
     access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET2
 });
 
-let cronValue = "36 0,6,12,18 * * *";
+let cronValue = "0 2,10,18 * * *";
 
 const test = () => {
     eth2calc().then(data=>{
         let status = buildTweet(data);
-        // client2.post('statuses/update', {
+        // client1.post('statuses/update', {
         //     status
         // },function(error, tweet, response) {
         //     if(error) console.log(error);
