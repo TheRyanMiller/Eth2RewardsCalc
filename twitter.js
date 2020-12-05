@@ -21,8 +21,8 @@ let cronValue = "0 0,8,16 * * *";
 
 // This is a test method used for testing tweet result with a secondary account
 const test = () => {
-    // eth2calc().then(data=>{
-    //     let status = buildTweet(data);
+     eth2calc().then(data=>{
+         let status = buildTweet(data);
     //     client2.post('statuses/update', {
     //         status
     //     },function(error, tweet, response) {
@@ -31,7 +31,7 @@ const test = () => {
     //             console.log("Tweet successful.");
     //         }
     //     })
-    // });
+    });
 }
 
 if(process.env.ISPROD==="true"){
