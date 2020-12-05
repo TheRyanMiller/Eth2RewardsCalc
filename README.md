@@ -15,7 +15,7 @@ This is a Twitter bot used to track rewards rate, network participation rate, an
 | 💻 **Active Validators**   | `totalSize` of validators per Prysm beacon chain API      |
 | ⏰ **Queue Wait Time**   | Time needed for all currently deposited validators to become active. This figure is based on the 900 validator per day activation rate and currently does not account for deposits made after the 2,048 block follow distance.    |
 | 💻 **Queued Validators**   | Number of 32-ETH deposits waiting in the activation queue. This figure currently does not account for deposits made after the 2,048 block follow distance.    |
-| 📉 **Queue Reward Impact**   | Impact to reward rate once all queued validators are activated. This is assumes all other network conditions are unchanged from current.    |
+| 📉 **Reward Impact**   | Impact to reward rate once all queued validators are activated. This is assumes all other network conditions are unchanged from current.    |
 | Ξ **Projected Annual Return**   | Projected returns assuming current network conditions remain unchanged (they wont!) for the full year. This value is priced in ETH, and then calculated to USD based on CoinGecko's current ETH/USD market price.    |
 
   
