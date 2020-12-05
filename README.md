@@ -12,7 +12,7 @@ This is a Twitter bot used to track rewards rate, network participation rate, an
 | ----------- | ----------- |
 | 🤑 **Reward Rate**      | Expected reward rate based on current network conditions (more: [Eth2 Calculator](bit.ly/eth2-calc))       |
 | 👨‍🌾 **Participation Rate**   | Current participation on Eth2 per Prysm beacon chain API      |
-| **Active Validators**   | `totalSize` of validators per Prysm beacon chain API      |
+| 💻 **Active Validators**   | `totalSize` of validators per Prysm beacon chain API      |
 | ⏰ **Queue Wait Time**   | Time needed for all currently deposited validators to become active. This figure is based on the 900 validator per day activation rate and currently does not account for deposits made after the 2,048 block follow distance.    |
 | 💻 **Queued Validators**   | Number of 32-ETH deposits waiting in the activation queue. This figure currently does not account for deposits made after the 2,048 block follow distance.    |
 | 📉 **Queue Reward Impact**   | Impact to reward rate once all queued validators are activated. This is assumes all other network conditions are unchanged from current.    |
