@@ -63,7 +63,7 @@ const buildTweet = (data) =>{
     tweet+="---Queue---\n"
     tweet+="⏰ Wait time: "+data.humanReadableWait+"\n";
     tweet+="💻 Validators: "+data.queueLength+"\n";
-    tweet+="📉 Rewards impact: "+data.rewardImpact+"\n\n";
+    tweet+="📉 Rewards impact: -"+data.rewardImpact+"\n\n";
     tweet+="---Projected Annual Returns---\n"
     tweet+="Ξ "+data.annualEthReturns+" ("+data.annualDollarReturns+")";
     console.log(tweet+"\n\n");
