@@ -18,14 +18,16 @@ const SPREADSHEET_ID = "18i5jGMIYHGIWiJIqr46uk3vg3198fMv3mP9qpnoD0sU";
 // Cell values
 const CELL_STAKER_REWARD_CURRENT = 'Eth2 Calculator!F60';
 const CELL_ACTIVE_VALIDATORS = 'Eth2 Calculator!F36';
-const CELL_STAKER_REWARD_FUTURE = 'Eth2 Calculator!F60';
 const CELL_TOTAL_ETH = 'Eth2 Calculator!C40';
 const CELL_TOTAL_STAKED_ETH = 'Eth2 Calculator!C38';
 const CELL_AVG_NETWORK_ONLINE = 'Eth2 Calculator!C39';
 const CELL_TOTAL_VALIDATORS_ONLINE = 'Eth2 Calculator!F36';
+const CELL_QUEUE_SIZE = 'Queue Projected!C3';
+const CELL_REWARD_IMPACT = 'Queue Projected!I5';
+const CELL_REWARD_AFTER_QUEUE = 'Queue Projected!H5';
 
 const filePath = path.dirname(require.main.filename)+'/credentials.json';
-console.log("FILEPATH:",filePath)
+
 let prysmData = {};
 // Load client secrets from a local file.
 module.exports = () => new Promise ((resolve, reject) => {
@@ -40,10 +42,16 @@ module.exports = () => new Promise ((resolve, reject) => {
           updateTotalValidatorsOnline(oAuth2Client).then(res=>{
             getRewardRate(oAuth2Client).then(res=>{
               prysmData.rewardRate = res[0];
-              getEthPrice().then(res=>{
-                prysmData.ethPrice = res;
-                let tweetData = processData(prysmData);
-                resolve(tweetData);
+              getRewardImpact(oAuth2Client).then(res=>{
+                prysmData.rewardImpact = res;
+                getEthPrice().then(res=>{
+                  prysmData.ethPrice = res;
+                  let tweetData = processData(prysmData);
+                  resolve(tweetData);
+                }).catch(err=>{
+                    console.log("failed getting ETH price from CoinGecko.");
+                    reject(err);
+                })
               }).catch(err=>{
                   console.log("failed getting ETH price from CoinGecko.");
                   reject(err);
@@ -140,12 +148,31 @@ module.exports = () => new Promise ((resolve, reject) => {
       const rows = res.data.values;
       resolve(res.data.values[0]);
     });
-  })
+  });
+
+  const getRewardImpact = (auth) => new Promise ((resolve, reject) => {
+    const sheets = google.sheets({version: 'v4', auth});
+    sheets.spreadsheets.values.get({
+      spreadsheetId: SPREADSHEET_ID,
+      range: CELL_REWARD_AFTER_QUEUE
+    }, (err, res) => {
+      if (err) {
+        console.log('The API returned an error: ' + err);
+        reject(err);
+      }
+      const rows = res.data.values;
+      let futureRewards = res.data.values[0][0];
+      futureRewards = futureRewards.substring(0,futureRewards.length-1);
+      let numCurrentRate = prysmData.rewardRate.substring(0,prysmData.rewardRate.length-1);
+      prysmData.futureRewards = futureRewards+"%";
+      let impact = (numCurrentRate - futureRewards).toFixed(2)+"%";
+      resolve(impact);
+    });
+  });
 
   const getEthPrice = () => new Promise ((resolve, reject) => {
     let url = "https://api.coingecko.com/api/v3/simple/price?ids=ethereum&vs_currencies=usd";
     axios.get(url).then(resp => {
-      console.log("ETH/USD",resp.data.ethereum.usd)
       resolve(resp.data.ethereum.usd);
     }).catch(err=>{
       console.log(err)

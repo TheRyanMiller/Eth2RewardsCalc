@@ -1,6 +1,7 @@
 const Twitter = require('twitter');
 const eth2calc = require('./eth2calc');
 const cron = require('node-cron');
+const lc = require('letter-count');
 require('dotenv').config();
 
 let client = new Twitter({
@@ -18,18 +19,19 @@ let client2 = new Twitter({
 
 let cronValue = "0 0,8,16 * * *";
 
+// This is a test method used for testing tweet result with a secondary account
 const test = () => {
-    eth2calc().then(data=>{
-        let status = buildTweet(data);
-        // client1.post('statuses/update', {
-        //     status
-        // },function(error, tweet, response) {
-        //     if(error) console.log(error);
-        //     else{                                  
-        //         console.log("Tweet successful.");
-        //     }
-        // })
-    });
+    // eth2calc().then(data=>{
+    //     let status = buildTweet(data);
+    //     client2.post('statuses/update', {
+    //         status
+    //     },function(error, tweet, response) {
+    //         if(error) console.log(error);
+    //         else{                                  
+    //             console.log("Tweet successful.");
+    //         }
+    //     })
+    // });
 }
 
 if(process.env.ISPROD==="true"){
@@ -60,9 +62,11 @@ const buildTweet = (data) =>{
     tweet+="💻 Active validators: "+data.numActiveValidators+"\n\n";
     tweet+="---Queue---\n"
     tweet+="⏰ Wait time: "+data.humanReadableWait+"\n";
-    tweet+="💻 Validators: "+data.queueLength+"\n\n";
+    tweet+="💻 Validators: "+data.queueLength+"\n";
+    tweet+="📉 Rewards impact: "+data.rewardImpact+"\n\n";
     tweet+="---Projected Annual Returns---\n"
     tweet+="Ξ "+data.annualEthReturns+" ("+data.annualDollarReturns+")";
     console.log(tweet+"\n\n");
+    console.log("\n->Tweet character count: "+ lc.count(tweet, '-c').chars);
     return tweet;
 }
