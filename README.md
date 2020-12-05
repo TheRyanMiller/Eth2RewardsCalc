@@ -2,6 +2,7 @@
 This is a Twitter bot used to track rewards rate, network participation rate, and other statistics about Ethereum 2.0.  
 
 - [Metrics Definitions](#metrics-definitions)  
+- [Assumption](#assumptions)  
 - [Resources](#resources)
 - [Installation Steps](#installation-steps)
 - [Contact](#contact)
@@ -18,7 +19,7 @@ This is a Twitter bot used to track rewards rate, network participation rate, an
 | 📉 **Reward Impact**   | Impact to reward rate once all queued validators are activated. This is assumes all other network conditions are unchanged from current.    |
 | Ξ **Projected Annual Return**   | Projected returns assuming current network conditions remain unchanged (they wont!) for the full year. This value is priced in ETH, and then calculated to USD based on CoinGecko's current ETH/USD market price.    |
 
-## Assumptions Made
+## Assumptions
 Each of the following assumptions are made to arrive at the projections included in each tweet by the @Eth2Bot bot.
 - User's validator is up 97% of the year
 - Rewards rate is based on a single validator (32 ETH deposit)
