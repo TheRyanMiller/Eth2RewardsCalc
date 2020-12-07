@@ -17,7 +17,7 @@ let client2 = new Twitter({
     access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET2
 });
 
-let cronValue = "0 0,8,16 * * *";
+let cronValue = "0 18 * * *";
 
 // This is a test method used for testing tweet result with a secondary account
 const test = () => {
