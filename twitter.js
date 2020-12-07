@@ -17,7 +17,7 @@ let client2 = new Twitter({
     access_token_secret: process.env.TWITTER_ACCESS_TOKEN_SECRET2
 });
 
-let cronValue = "0 18 * * *";
+let cronValue = "0 12 * * *";
 
 // This is a test method used for testing tweet result with a secondary account
 const test = () => {
@@ -35,6 +35,7 @@ const test = () => {
 }
 
 if(process.env.ISPROD==="true"){
+    console.log("Starting bot with a cron value of: "+cronValue);
     let postTask = cron.schedule(cronValue, () => {
         eth2calc().then(data=>{
             let status = buildTweet(data);
