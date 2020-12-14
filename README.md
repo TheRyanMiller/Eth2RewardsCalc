@@ -14,7 +14,7 @@ This repository host the code for the @Eth2Bot Twitter account used to track rew
 
 | Metric      | Description |
 | ----------- | ----------- |
-| 🤑 **Reward Rate**      | Expected reward rate based on current network conditions (more: [Eth2 Calculator](bit.ly/eth2-calc))       |
+| 🤑 **Reward Rate**      | Expected reward rate based on current network conditions (more: [Eth2 Calculator](https://bit.ly/eth2-calc))       |
 | 👨‍🌾 **Participation Rate**   | Current participation on Eth2 per Prysm beacon chain API      |
 | 💻 **Active Validators**   | `totalSize` of validators per Prysm beacon chain API      |
 | ⏰ **Queue Wait Time**   | Time needed for all currently deposited validators to become active. This figure is based on the 900 validator per day activation rate and currently does not account for deposits made after the 2,048 block Eth1 follow distance (i.e. any deposits made within past 7 hours).    |
@@ -30,11 +30,11 @@ Each of the following assumptions are made to arrive at the projections included
 - Rewards rate is annualized
   
 ## Resources
-- Huge thanks to Colin Myers at Codefi for developing the [Eth2 Calculator](bit.ly/eth2-calc) spreadsheet, which is used heavily for by this project.
+- Huge thanks to Colin Myers at Codefi for developing the [Eth2 Calculator](https://bit.ly/eth2-calc) spreadsheet, which is used heavily for by this project.
 - [Prysm API](https://api.prylabs.network/#/)
 
 ## Installation Steps
-1. Make a personal copy of [Eth2 Reward Calc Google Sheet](bit.ly/eth2-calc). This will allow the script to read/write data.
+1. Make a personal copy of [Eth2 Reward Calc Google Sheet](https://bit.ly/eth2-calc). This will allow the script to read/write data.
 1. Clone this repo with `git clone`.
 1. Run `cd Eth2RewardsCalc && npm install` to install npm packages.
 1. Run `node sheets_demo.js` to generate an access token and credentials.json file used to edit Google.Sheets.
