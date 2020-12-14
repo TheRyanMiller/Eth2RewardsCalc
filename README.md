@@ -1,11 +1,14 @@
 # @Eth2Bot
-This is a Twitter bot used to track rewards rate, network participation rate, and other statistics about Ethereum 2.0.  
+![example tweet](./example_tweet.png)  
+*Example tweet*  
+
+This repository host the code for the @Eth2Bot Twitter account used to track rewards rate, network participation rate, and other statistics about Ethereum 2.0.  
 
 - [Metrics Definitions](#metrics-definitions)  
 - [Assumption](#assumptions)  
 - [Resources](#resources)
 - [Installation Steps](#installation-steps)
-- [Contact](#contact)
+- [Contact](#contact)    
 
 ## Metrics Definitions
 
